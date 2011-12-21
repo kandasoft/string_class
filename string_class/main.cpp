@@ -2,7 +2,7 @@
 //  main.cpp
 //  string_class
 //
-//  Created by Yumitsu on 21.12.11.
+//  Created by Kandsoft on 21.12.11.
 //
 
 #include <iostream>
