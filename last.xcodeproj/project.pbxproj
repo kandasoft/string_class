@@ -62,9 +62,17 @@
 			children = (
 				2358722C14A51A3300204DEF /* main.cpp */,
 				2358722D14A51A3300204DEF /* strcls.cpp */,
-				2358722E14A51A3300204DEF /* strcls.h */,
+				23A78EB514A7EBF60095EF2D /* headers */,
 			);
 			path = last;
+			sourceTree = "<group>";
+		};
+		23A78EB514A7EBF60095EF2D /* headers */ = {
+			isa = PBXGroup;
+			children = (
+				2358722E14A51A3300204DEF /* strcls.h */,
+			);
+			name = headers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
