@@ -33,7 +33,9 @@ Strings::~Strings(){
 }
 
 
-// перегрузка операторов =
+// 
+// перегрузка операторов
+// 
 
 Strings& Strings::operator=(const char* s){
     if (rep->n == 1)
@@ -52,6 +54,21 @@ Strings& Strings::operator=(const Strings& x){
     rep = x.rep;
     return *this;
 }
+
+Strings& Strings::operator+(const Strings& x){
+    char* temp = new char[this->len() + x.len() + 1];
+    for(int i = 0; i < this->len(); i++)
+        temp[i] = this->read(i);
+    for(int i = 0; i < x.len(); i++)
+        temp[i+this->len()] = x[i];
+   
+    return *new Strings(temp);
+}
+
+Strings& Strings::operator+=(const Strings& x){
+    //
+}
+
 
 /*
     перегрузки операторов ввода/вывода
@@ -126,10 +143,43 @@ int Strings::pos(Strings what, int start, int end){
 // Удаление подстроки. Две реализации. Первая удаляет первое вхождение
 // указанной подстроки:
 // void del(T& what)
+// даже не спрашивайте как, это изврат полный
 
 void Strings::del(Strings& what){
     if (what.len() < this->len()){
-        
+        bool flag; // флаг о том, что вхождение найдено
+        for (int i = 0; i < this->len() - what.len() && !flag; i++){
+            flag = true;
+            
+            // проверяем полное ли вхождение
+            for(int j = 0; j < what.len() && flag; j++){
+                if (this->read(i+j) != what[j])
+                    flag = false;
+            }
+            
+            // если полное
+            if (flag) {
+                char* a = new char[i+1];
+                strncpy(a, this->rep->s, i);
+                
+                char* b = new char[this->len() - i - what.len() + 1];
+                int size = (this->len() - (i + what.len()));
+                
+                for (int g = 0; g < size; g++){
+                    b[g] = this->read(g+i+what.len());
+                }
+                
+                // освобождаем себя от дальнейшего извращенства
+                Strings aTemp = a, 
+                        bTemp = b;
+                
+                *this = *new Strings(aTemp+bTemp);
+                
+                //чистимся
+                delete [] a;
+                delete [] b;
+            }
+        }
     }
 }
 

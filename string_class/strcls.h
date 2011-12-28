@@ -90,11 +90,7 @@ public:
     Strings();                          // a = ""
     Strings(const char*);               // a = "asd"
     Strings(const Strings&);            // a = b 
-    
-    // перегрузка операторов
-    
-    Strings& operator=(const char*);
-    Strings& operator=(const Strings&);
+
     
     // диструктор
     ~Strings();
@@ -106,18 +102,25 @@ public:
     void write(int, char);
     
     size_t len() const;
-    int pos(Strings, int, int);
-    void del(Strings&);
+    int pos(Strings, int, int);         // индексация. Первое вхождение
+    void del(Strings&);                 // удаление подстроки
     
     Cref operator[] (int i) { check(i); return Cref(*this,i); }
     char operator[] (int i) const { check(i); return rep->s[i]; };
     
-    size_t size() const { return rep->sz; }
+    // перегрузка операторов
+    
+    Strings& operator=(const char*);
+    Strings& operator=(const Strings&);
     
     // дополнительно
     
+    Strings& operator+ (const Strings&);
+    
     Strings& operator+= (const Strings&);
     Strings& operator+= (const char*);
+    
+    // дружественные функции, вывод
     
     friend ostream& operator<<(ostream&, const Strings&);
     friend istream& operator>>(istream&, Strings&);

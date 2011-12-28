@@ -15,11 +15,12 @@ int main (int argc, const char * argv[])
 {
     Strings a, b ;
     a = "assdlkfjdslkf";
-    b = "dlk";
+    b = "fjd";
     int position = a.pos("lkf", 0, a.len());
+//    
+    a.del(b);
     
-    
-    cout << position;
+    cout << position << a;
     
     return 0;// 
 }
