@@ -12,13 +12,16 @@
 using namespace std;
 
 class Strings {
+    
     /*
          Структура, в которой храним саму строку и данные о ней, так же количество обращений для оптимального использования. 
          По сути, этот член класса является каркасом всего класса, так как главные функции — хранения, удалени, разыменовывания — выполняет он. 
      */
     struct Srep;
     struct Strings::Srep{
-    public:
+        
+        public:
+       
         char* s;    // указатель на строку
         size_t sz;  // размер строки
         int n;      // количество обращений
@@ -53,11 +56,12 @@ class Strings {
             strcpy(s,p);
         }
         
-    private:                    // предохраняет от копирования
+        private:  // предохраняет от копирования
+
         Srep(const Srep&); 
-        Srep& operator=(const Srep&);
+        Srep& operator= (const Srep&);
     };
-  
+    
     Srep *rep;
     
 public:
@@ -97,9 +101,13 @@ public:
     
     // методы и дополнительные перегрузки
     
-    void check (int i) const { if (i < 0 || rep->sz <= i) throw Range(); }
-    char read(int i) const { return rep->s[i]; }
-    void write(int i, char c) { rep = rep->get_own_copy(); rep->s[i] = c; }
+    void check (int) const;
+    char read(int) const;
+    void write(int, char);
+    
+    size_t len() const;
+    int pos(Strings, int, int);
+    void del(Strings&);
     
     Cref operator[] (int i) { check(i); return Cref(*this,i); }
     char operator[] (int i) const { check(i); return rep->s[i]; };
@@ -107,15 +115,12 @@ public:
     size_t size() const { return rep->sz; }
     
     // дополнительно
+    
     Strings& operator+= (const Strings&);
     Strings& operator+= (const char*);
-
     
     friend ostream& operator<<(ostream&, const Strings&);
     friend istream& operator>>(istream&, Strings&);
-    
 };
-
-
 
 #endif
