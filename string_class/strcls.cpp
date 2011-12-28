@@ -56,17 +56,32 @@ Strings& Strings::operator=(const Strings& x){
 }
 
 Strings& Strings::operator+(const Strings& x){
+    
     char* temp = new char[this->len() + x.len() + 1];
+    
     for(int i = 0; i < this->len(); i++)
         temp[i] = this->read(i);
+    
     for(int i = 0; i < x.len(); i++)
         temp[i+this->len()] = x[i];
-   
+
     return *new Strings(temp);
 }
 
 Strings& Strings::operator+=(const Strings& x){
-    //
+    
+    char* temp = new char[this->len() + x.len() + 1];
+    
+    for(int i = 0; i < this->len(); i++)
+        temp[i] = this->read(i);
+    
+    for(int i = 0; i < x.len(); i++)
+        temp[i+this->len()] = x[i];
+    
+    this->rep->assign(strlen(temp), temp);
+    delete [] temp;
+    
+    return *this;
 }
 
 

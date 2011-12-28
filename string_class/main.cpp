@@ -20,7 +20,11 @@ int main (int argc, const char * argv[])
 //    
     a.del(b);
     
-    cout << position << a;
+    Strings z;
+    
+    z += b;
+    
+    cout << position << a << " || " << z;
     
     return 0;// 
 }
