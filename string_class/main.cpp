@@ -13,11 +13,13 @@ using namespace std;
 
 int main (int argc, const char * argv[])
 {
-    Strings a, b,c ;
-    a = "  assdlKFDSfjdsdl ";
+    Strings a = "asdfs";
+    Strings c = "adf";
+    Strings b; 
+    Strings k;
     
-    b = "HELLO";
-    c = "lk";
+    k="af";
+    b = "sadf";
     
 //    int position = a.pos("lkf", 0, a.len());
 //    a.del(b);
@@ -27,11 +29,11 @@ int main (int argc, const char * argv[])
 //    a.replace(c, b);
 //    a.replaceAll(c, b);
 //    a.trim();
-    a.lower();
+//    a.lower();
+//    a.upper();
+//    cout << a.to_int();
     
-    Strings z;
-    z += b;
-
+    a.reverse();
     cout << a;
     
     return 0;

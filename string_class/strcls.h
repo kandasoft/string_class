@@ -36,7 +36,7 @@ class Strings {
         }
         
         // деструктор — освобождает память, выделенную под строку
-        ~Srep () { delete [] s; }
+        ~Srep () { delete [] s;}
         
         // копирование.
         Srep* get_own_copy() { 
@@ -117,7 +117,11 @@ public:
     
     void trim();                        // отсечение пробелов т.п.
     void lower();                       // приведение всех символов к нижнему регистру
+    void upper();                       // приведение всех символов к верхнему регистру
     
+    int to_int();                       // строку привести к типу int, в случае чего — вернуть 0
+    
+    void reverse();                      // инвертирование строки
     
     Cref operator[] (int i) { check(i); return Cref(*this,i); }
     char operator[] (int i) const { check(i); return rep->s[i]; };

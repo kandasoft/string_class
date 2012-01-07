@@ -54,7 +54,10 @@ Strings& Strings::operator=(const char* s){
 // перегрузка = с подсчетом ссылок
 Strings& Strings::operator=(const Strings& x){
     x.rep->n++;     
-    if( --rep->n == 0) delete rep;
+    
+    if( --rep->n == 0) 
+        delete rep;
+    
     rep = x.rep;
     return *this;
 }
@@ -451,12 +454,96 @@ void Strings::lower(){
     
     for (int i = 0; i < this->len(); i++){
         temp[i] = this->read(i);
-        tolower(temp[i]);
+        temp[i] = tolower(temp[i]);
     }
-    strlen(temp);
     this->rep->assign(strlen(temp), temp);
     delete [] temp;
     
 }
+
+/*
+     Приведение всех буквенных символов (и латинских и кириллицы) к верхнему
+     регистру:
+     void upper();
+ */
+
+void Strings::upper(){
+    char* temp = new char[this->len()+1];
+    
+    for (int i = 0; i < this->len(); i++){
+        temp[i] = this->read(i);
+        temp[i] = toupper(temp[i]);
+    }
+    this->rep->assign(strlen(temp), temp);
+    delete [] temp;
+    
+}
+
+/*
+    Преобразование в int (в случае ошибки 0):
+    int to_int();
+ */
+
+int Strings::to_int(){
+
+    bool fl = true; // индикатор число или нет
+    bool isPositive = true;
+    int temp = 0;
+    
+    if (this->len() > 0){ 
+        switch (this->read(0)) {
+            case '-':
+                isPositive = false;
+                break;
+            case '+':
+                isPositive = true;
+                break;
+            default:
+                if (toascii(this->read(0)) < 48 || toascii(this->read(0)) > 57)
+                    fl = false;
+                else {
+                    temp *= 10;
+                    temp += toascii(this->read(0)) - 48;
+                }
+                break;
+        }
+    }    
+        
+    for (int i = 1; i < this->len() && fl; i++){
+        if (toascii(this->read(i)) < 48 || toascii(this->read(i)) > 57)
+            fl = false;
+        else {
+            temp *= 10;
+            temp += toascii(this->read(i)) - 48;
+        }
+    }
+    temp = (isPositive) ? temp : temp * (-1);
+    return (fl) ? temp : 0;
+    
+}
+
+/*
+    Инвертирование строки:
+    void reverse();
+ */
+
+void Strings::reverse(){
+    
+    char* temp = new char[1];
+    int iIn = this->len() / 2;
+    for (int i = 0; i < this->len() / 2; i++){
+        
+        temp[0] = this->read(i);
+        this->write(i, this->read(this->len()-1-i));
+        this->write(this->len()-i-1, temp[0]);
+    }
+    
+    delete [] temp;
+}
+
+
+
+
+
 
 
