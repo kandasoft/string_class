@@ -71,7 +71,8 @@ public:
      */
     class Cref;     
     class Strings::Cref {
-        friend class Strings;
+        
+        friend class Strings; // говорим, что это наш друг
         Strings& s;
         int i;
         Cref(Strings& ss, int ii):s(ss),i(ii){}
@@ -82,7 +83,7 @@ public:
     };
     
     /*
-     Класс обработки исключений
+     Класс обработки исключений (если когда-нибудь доберусь)
      */
     class Range{};     
     
@@ -102,8 +103,21 @@ public:
     void write(int, char);
     
     size_t len() const;
+    
     int pos(Strings, int, int);         // индексация. Первое вхождение
-    void del(Strings&);                 // удаление подстроки
+    
+    void del(Strings&);                 // удаление подстроки. Вариант первый
+    void del(int, int);                 // удаление подстроки. Вариант второй (с какого, сколько)
+    void delall(Strings&);              // удаление всех вхождений подстроки
+    
+    void ins(Strings&, int);            // вставка подстроки what на место where
+    
+    void replace(Strings&, Strings&);   // замена первого вхождения строки на replace_with
+    void replaceAll(Strings&, Strings&);// замена всех совпадений what на replace_with
+    
+    void trim();                        // отсечение пробелов т.п.
+    void lower();                       // приведение всех символов к нижнему регистру
+    
     
     Cref operator[] (int i) { check(i); return Cref(*this,i); }
     char operator[] (int i) const { check(i); return rep->s[i]; };
